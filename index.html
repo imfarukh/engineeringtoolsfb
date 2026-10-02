@@ -288,11 +288,28 @@ h2{margin:0 0 18px;font-size:clamp(34px,4.2vw,56px);line-height:1.03;font-weight
 .vf-side h3{margin:0 0 12px;font-size:30px;line-height:1.1;font-variation-settings:"wdth" 114}
 .vf-side p{color:var(--muted);margin:0 0 26px}
 .btn svg[class]{width:20px}
-.vgroup{margin-bottom:22px}
+.vgroup{margin:0 0 22px;scroll-margin-top:96px}
+.vgrid + .vgroup{margin-top:56px}
 .vg-head{display:flex;gap:14px;align-items:center}
 .vg-head .ai{width:48px;height:48px}
 .vg-head h3{margin:0;font-size:24px;font-variation-settings:"wdth" 112}
 .vg-head p{margin:2px 0 0;color:var(--muted);font-size:15px}
+.vtabs{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px;scroll-margin-top:96px}
+.vtab{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 16px 10px 10px;border-radius:14px;border:1px solid var(--line);background:var(--stepbg);color:var(--text);font-weight:700;font-size:16px;transition:border-color .2s,background .2s;box-shadow:var(--shadow)}
+.vtab svg{width:34px;height:34px;flex:none}
+.vtab em{font-style:normal;font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:99px;background:rgba(147,167,190,.16);color:var(--muted)}
+.vtab:hover{border-color:var(--blue)}
+.vtab:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.vtab[aria-selected="true"]{border-color:var(--amber);background:rgba(255,166,43,.12)}
+.vtab[aria-selected="true"] em{background:var(--amber);color:#1A1203}
+.vpanel{animation:vfade .35s ease-out}
+@keyframes vfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.vempty{display:flex;gap:18px;align-items:center;padding:30px;border:1px dashed var(--line);border-radius:18px}
+.vempty .ai{width:56px;height:56px;flex:none}
+.vempty h3{margin:0 0 4px;font-size:20px}
+.vempty p{margin:0;color:var(--muted)}
+.vempty a{color:var(--blue);font-weight:600}
+@media (max-width:640px){.vtab span{display:none}.vtab{padding:8px 12px 8px 8px}}
 .vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 .vcard{display:flex;flex-direction:column;gap:14px;min-width:0}
 .vcard .yt{border-radius:14px;box-shadow:var(--shadow)}
@@ -555,7 +572,7 @@ footer a:hover{color:var(--text)}
           <div class="price-row"><span class="chip"><b>Free</b> download</span><span class="chip pro">Pro <b>$34.99</b> one-time</span></div>
           <div class="btns">
             <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9PHX8LHT9CLH?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
-            <a class="btn btn-line" href="#videos"><svg><use href="#i-play"/></svg>Watch 4 tutorials</a>
+            <a class="btn btn-line" href="#v-pdf" data-vtab="pdf"><svg><use href="#i-play"/></svg>Watch 4 videos</a>
           </div>
         </div>
         <div class="reveal">
@@ -598,7 +615,7 @@ footer a:hover{color:var(--text)}
           <div class="price-row"><span class="chip"><b>Free</b> up to 25 positions</span><span class="chip pro">Pro <b>$2.49</b> one-time</span></div>
           <div class="btns">
             <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9NT3RZ9893RB?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
-            <span class="btn btn-line soon" aria-disabled="true"><svg><use href="#i-play"/></svg>Video <em>Coming soon</em></span>
+            <a class="btn btn-line" href="#v-org" data-vtab="org"><svg><use href="#i-play"/></svg>Watch 4 videos</a>
           </div>
         </div>
         <div class="reveal">
@@ -679,7 +696,7 @@ footer a:hover{color:var(--text)}
           <div class="price-row"><span class="chip"><b>Free</b> download</span><span class="chip pro">Pro <b>$4.99</b> one-time</span></div>
           <div class="btns">
             <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9PD22HK5D0JM?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
-            <span class="btn btn-line soon" aria-disabled="true"><svg><use href="#i-play"/></svg>Video <em>Coming soon</em></span>
+            <a class="btn btn-line" href="#v-hc" data-vtab="hc"><svg><use href="#i-play"/></svg>Watch the video</a>
           </div>
         </div>
         <div class="reveal">
@@ -727,62 +744,132 @@ footer a:hover{color:var(--text)}
           <h3>Engineering Tools FB in one minute</h3>
           <p>A quick tour of every app: what each one does, what Pro adds and what is coming next.</p>
           <div class="btns">
-            <a class="btn btn-amber" href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA?sub_confirmation=1" target="_blank" rel="noopener"><svg><use href="#i-yt"/></svg>Subscribe on YouTube</a>
-            <a class="btn btn-line" href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA/videos" target="_blank" rel="noopener">All videos</a>
+            <a class="btn btn-amber" href="https://www.youtube.com/@EngineeringToolsFB?sub_confirmation=1" target="_blank" rel="noopener"><svg><use href="#i-yt"/></svg>Subscribe on YouTube</a>
+            <a class="btn btn-line" href="https://www.youtube.com/@EngineeringToolsFB/videos" target="_blank" rel="noopener">All videos</a>
           </div>
         </div>
       </div>
 
-      <div class="vgroup reveal">
-        <div class="vg-head"><svg class="ai"><use href="#app-pdf"/></svg><div><h3>FB PDF Editor tutorials</h3><p>4 videos</p></div></div>
+      <div class="vtabs reveal" role="tablist" aria-label="Choose an app">
+        <button class="vtab" role="tab" id="tab-pdf" aria-controls="v-pdf" aria-selected="true" data-app="pdf"><svg><use href="#app-pdf"/></svg><span>FB PDF Editor</span><em>4</em></button>
+        <button class="vtab" role="tab" id="tab-org" aria-controls="v-org" aria-selected="false" data-app="org"><svg><use href="#app-org"/></svg><span>Organization Chart FB</span><em>4</em></button>
+        <button class="vtab" role="tab" id="tab-hc" aria-controls="v-hc" aria-selected="false" data-app="hc"><svg><use href="#app-hc"/></svg><span>Highlight Cursor</span><em>1</em></button>
+        <button class="vtab" role="tab" id="tab-word" aria-controls="v-word" aria-selected="false" data-app="word"><svg><use href="#app-word"/></svg><span>Word Properties Editor</span><em>Soon</em></button>
       </div>
-      <div class="vgrid">
-        <article class="vcard reveal">
-          <div class="yt" data-id="z449qRcskuc" data-title="Work with tables">
-            <a class="yt-max" href="https://www.youtube.com/watch?v=z449qRcskuc" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
-            <button class="yt-play" type="button" aria-label="Play: Work with tables">
-              <img src="https://i.ytimg.com/vi/z449qRcskuc/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
-              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
-              <span class="vnum">01</span>
-            </button>
-          </div>
-          <div class="vmeta"><h3>Work with tables</h3><p>Step by step: working with tables in your PDFs.</p><a href="https://www.youtube.com/watch?v=z449qRcskuc" target="_blank" rel="noopener">Watch on YouTube</a></div>
-        </article>
-        <article class="vcard reveal">
-          <div class="yt" data-id="WbZmsjOYzmI" data-title="Make scanned PDFs searchable (OCR)">
-            <a class="yt-max" href="https://www.youtube.com/watch?v=WbZmsjOYzmI" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
-            <button class="yt-play" type="button" aria-label="Play: Make scanned PDFs searchable (OCR)">
-              <img src="https://i.ytimg.com/vi/WbZmsjOYzmI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
-              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
-              <span class="vnum">02</span>
-            </button>
-          </div>
-          <div class="vmeta"><h3>Make scanned PDFs searchable (OCR)</h3><p>Make scanned pages searchable with OCR.</p><a href="https://www.youtube.com/watch?v=WbZmsjOYzmI" target="_blank" rel="noopener">Watch on YouTube</a></div>
-        </article>
-        <article class="vcard reveal">
-          <div class="yt" data-id="WvZap29KmvY" data-title="Add stamps">
-            <a class="yt-max" href="https://www.youtube.com/watch?v=WvZap29KmvY" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
-            <button class="yt-play" type="button" aria-label="Play: Add stamps">
-              <img src="https://i.ytimg.com/vi/WvZap29KmvY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
-              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
-              <span class="vnum">03</span>
-            </button>
-          </div>
-          <div class="vmeta"><h3>Add stamps</h3><p>Add stamps to your PDF pages.</p><a href="https://www.youtube.com/watch?v=WvZap29KmvY" target="_blank" rel="noopener">Watch on YouTube</a></div>
-        </article>
-        <article class="vcard reveal">
-          <div class="yt" data-id="8RLJsb3lTvw" data-title="Sign a PDF">
-            <a class="yt-max" href="https://www.youtube.com/watch?v=8RLJsb3lTvw" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
-            <button class="yt-play" type="button" aria-label="Play: Sign a PDF">
-              <img src="https://i.ytimg.com/vi/8RLJsb3lTvw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
-              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
-              <span class="vnum">04</span>
-            </button>
-          </div>
-          <div class="vmeta"><h3>Sign a PDF</h3><p>Add your signature to a PDF.</p><a href="https://www.youtube.com/watch?v=8RLJsb3lTvw" target="_blank" rel="noopener">Watch on YouTube</a></div>
-        </article>
+      <div class="vpanel" role="tabpanel" id="v-pdf" aria-labelledby="tab-pdf">
+        <div class="vgrid">
+          <article class="vcard">
+            <div class="yt" data-id="z449qRcskuc" data-title="Work with tables">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=z449qRcskuc" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Work with tables">
+                <img src="https://i.ytimg.com/vi/z449qRcskuc/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">01</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Work with tables</h3><p>Step by step: working with tables in your PDFs.</p><a href="https://www.youtube.com/watch?v=z449qRcskuc" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+          <article class="vcard">
+            <div class="yt" data-id="WbZmsjOYzmI" data-title="Make scanned PDFs searchable (OCR)">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=WbZmsjOYzmI" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Make scanned PDFs searchable (OCR)">
+                <img src="https://i.ytimg.com/vi/WbZmsjOYzmI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">02</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Make scanned PDFs searchable (OCR)</h3><p>Make scanned pages searchable with OCR.</p><a href="https://www.youtube.com/watch?v=WbZmsjOYzmI" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+          <article class="vcard">
+            <div class="yt" data-id="WvZap29KmvY" data-title="Add stamps">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=WvZap29KmvY" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Add stamps">
+                <img src="https://i.ytimg.com/vi/WvZap29KmvY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">03</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Add stamps</h3><p>Add stamps to your PDF pages.</p><a href="https://www.youtube.com/watch?v=WvZap29KmvY" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+          <article class="vcard">
+            <div class="yt" data-id="8RLJsb3lTvw" data-title="Sign a PDF">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=8RLJsb3lTvw" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Sign a PDF">
+                <img src="https://i.ytimg.com/vi/8RLJsb3lTvw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">04</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Sign a PDF</h3><p>Add your signature to a PDF.</p><a href="https://www.youtube.com/watch?v=8RLJsb3lTvw" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+        </div>
       </div>
-      <p class="vmore reveal">Tutorials for Organization Chart FB, Word Properties Editor and Highlight Cursor are coming soon. <a href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a> to get them first.</p>
+      <div class="vpanel" role="tabpanel" id="v-org" aria-labelledby="tab-org" hidden>
+        <div class="vgrid">
+          <article class="vcard">
+            <div class="yt" data-id="mM5zx61PIKE" data-title="Organization Chart FB overview">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=mM5zx61PIKE" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Organization Chart FB overview">
+                <img src="https://i.ytimg.com/vi/mM5zx61PIKE/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">Intro</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Organization Chart FB overview</h3><p>A quick look at what the app can do.</p><a href="https://www.youtube.com/watch?v=mM5zx61PIKE" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+          <article class="vcard">
+            <div class="yt" data-id="8p_vct8jytM" data-title="Build an org chart">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=8p_vct8jytM" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Build an org chart">
+                <img src="https://i.ytimg.com/vi/8p_vct8jytM/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">01</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Build an org chart</h3><p>Add people and reporting lines, and the chart lays itself out.</p><a href="https://www.youtube.com/watch?v=8p_vct8jytM" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+          <article class="vcard">
+            <div class="yt" data-id="s4_74006dwo" data-title="Style your chart">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=s4_74006dwo" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Style your chart">
+                <img src="https://i.ytimg.com/vi/s4_74006dwo/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">02</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Style your chart</h3><p>Change the look of your chart.</p><a href="https://www.youtube.com/watch?v=s4_74006dwo" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+          <article class="vcard">
+            <div class="yt" data-id="za604euz9b0" data-title="Import a staff list and export">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=za604euz9b0" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: Import a staff list and export">
+                <img src="https://i.ytimg.com/vi/za604euz9b0/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">03</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>Import a staff list and export</h3><p>Bring in your staff list and export the finished chart.</p><a href="https://www.youtube.com/watch?v=za604euz9b0" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+        </div>
+      </div>
+      <div class="vpanel" role="tabpanel" id="v-hc" aria-labelledby="tab-hc" hidden>
+        <div class="vgrid">
+          <article class="vcard">
+            <div class="yt" data-id="9_Wl0Wl8b_A" data-title="How to use Highlight Cursor">
+              <a class="yt-max" href="https://www.youtube.com/watch?v=9_Wl0Wl8b_A" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
+              <button class="yt-play" type="button" aria-label="Play: How to use Highlight Cursor">
+                <img src="https://i.ytimg.com/vi/9_Wl0Wl8b_A/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+                <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+                <span class="vnum">01</span>
+              </button>
+            </div>
+            <div class="vmeta"><h3>How to use Highlight Cursor</h3><p>Set up the highlight circle for meetings and recordings.</p><a href="https://www.youtube.com/watch?v=9_Wl0Wl8b_A" target="_blank" rel="noopener">Watch on YouTube</a></div>
+          </article>
+        </div>
+      </div>
+      <div class="vpanel" role="tabpanel" id="v-word" aria-labelledby="tab-word" hidden>
+        <div class="vempty"><svg class="ai"><use href="#app-word"/></svg><div><h3>Word Properties Editor tutorials are coming soon</h3><p><a href="https://www.youtube.com/@EngineeringToolsFB?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a> to get them first.</p></div></div>
+      </div>
     </div>
   </section>
 
@@ -904,7 +991,7 @@ footer a:hover{color:var(--text)}
         </div>
         <div class="soon-card reveal">
           <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#C4302B"/><path d="M26 21v22l18-11z" fill="#fff"/></svg><div><span class="badge live-badge">Now on YouTube</span><h3>Video tutorials</h3></div></div>
-          <p>FB PDF Editor tutorials are live. More apps are on the way. <a href="#videos">Watch now</a></p>
+          <p>Tutorials for FB PDF Editor, Organization Chart FB and Highlight Cursor are live. <a href="#videos">Watch now</a></p>
         </div>
         <div class="soon-card reveal">
           <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1B3557"/><path d="M32 18v28M18 32h28" stroke="#FFA62B" stroke-width="5" stroke-linecap="round"/></svg><div><h3>Have an idea?</h3></div></div>
@@ -956,7 +1043,7 @@ footer a:hover{color:var(--text)}
       <a href="#apps">Apps</a>
       <a href="#pricing">Pricing</a>
       <a href="#soon">Coming soon</a>
-      <a href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.youtube.com/@EngineeringToolsFB" target="_blank" rel="noopener">YouTube</a>
       <a href="https://github.com/imfarukh">GitHub</a>
     </nav>
   </div>
@@ -995,6 +1082,16 @@ footer a:hover{color:var(--text)}
   tiles.forEach(t=>t.addEventListener('pointerenter',()=>{hover=true;moveTo(t)}));
   desk.addEventListener('pointerleave',()=>{hover=false});
   addEventListener('resize',()=>moveTo(tiles[last]));
+  // Video tabs: one tab per app; app buttons and #v-<app> links open the right tab.
+  const vtabs=[...document.querySelectorAll('.vtab')];
+  const openTab=(k,scroll)=>{
+    vtabs.forEach(t=>{const on=t.dataset.app===k;t.setAttribute('aria-selected',on);
+      document.getElementById('v-'+t.dataset.app).hidden=!on;});
+    if(scroll) document.querySelector('.vtabs').scrollIntoView({behavior:'smooth',block:'start'});
+  };
+  vtabs.forEach(t=>t.addEventListener('click',()=>{openTab(t.dataset.app,false);history.replaceState(null,'','#v-'+t.dataset.app)}));
+  document.querySelectorAll('a[data-vtab]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openTab(a.dataset.vtab,true);history.replaceState(null,'','#v-'+a.dataset.vtab)}));
+  const h=location.hash.match(/^#v-(\w+)/); if(h&&document.getElementById('tab-'+h[1])) openTab(h[1],true);
   // YouTube: the real player loads only when a video is clicked (fast page; plays count as views).
   // The player's own full-screen is turned off; our full-screen button opens the video on YouTube
   // at the same moment, so full-screen watching happens on the channel.
