@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engineering Tools FB</title>
+<script>
+  (function(){var t;try{t=localStorage.getItem('etfb-theme')}catch(e){}
+  if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}
+  document.documentElement.setAttribute('data-theme',t)})();
+</script>
+<meta name="description" content="Focused Windows apps by Farrukh Bhatti: FB PDF Editor, Organization Chart FB, Word Properties Editor and Highlight Cursor. Free to download, Pro is a one-time payment.">
+<link rel="icon" href="logos/logo-b-amber.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#07111F;--deep:#0C1A2E;--panel:#11233C;--line:#1F3757;
+  --blue:#4FB3F0;--amber:#FFA62B;--red:#FF5A47;--green:#3DD68C;
+  --text:#EAF1F8;--muted:#93A7BE;--wrap:1200px;
+  --navbg:rgba(7,17,31,.82);--btnline:#33506F;--btnbg:rgba(255,255,255,.03);--pillbg:rgba(17,35,60,.7);
+  --g1:#FFFFFF;--g2:#BFE5FF;--g3:#4FB3F0;--kicker:#FFA62B;--stepbg:rgba(17,35,60,.45);--shadow:none;
+  --gridline:rgba(79,179,240,.07);--glow1:rgba(79,179,240,.22);--glow2:rgba(255,166,43,.12);
+  --cardbg:linear-gradient(180deg,#11233C,#0C1A2E);
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --night:#F5F8FC;--deep:#EAF1F8;--panel:#FFFFFF;--line:#D6E1EC;
+  --blue:#1C86CC;--green:#12965F;--red:#DD3B27;--text:#0B1A2D;--muted:#4E6278;
+  --navbg:rgba(245,248,252,.85);--btnline:#B8C9DA;--btnbg:#FFFFFF;--pillbg:#FFFFFF;
+  --g1:#0B1A2D;--g2:#16406B;--g3:#1C86CC;--kicker:#B86400;--stepbg:#FFFFFF;
+  --shadow:0 18px 40px -22px rgba(16,42,74,.35);
+  --gridline:rgba(28,134,204,.09);--glow1:rgba(79,179,240,.28);--glow2:rgba(255,166,43,.18);
+  --cardbg:linear-gradient(180deg,#FFFFFF,#F2F7FC);
+  color-scheme:light;
+}
+/* Panels that stay dark in both themes (product windows, highlight panels) */
+:root[data-theme="light"] .island{--deep:#0C1A2E;--panel:#11233C;--line:#1F3757;--blue:#4FB3F0;--green:#3DD68C;--red:#FF5A47;--text:#EAF1F8;--muted:#93A7BE;--btnline:#33506F;--btnbg:rgba(255,255,255,.03);--kicker:#FFA62B;color:var(--text)}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--text);font-family:Archivo,system-ui,sans-serif;font-size:18px;line-height:1.6;overflow-x:hidden;transition:background-color .35s,color .35s}
+a{color:inherit}
+img,svg{display:block}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:var(--navbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;font-size:19px;font-variation-settings:"wdth" 115;white-space:nowrap}
+.brand svg{width:38px;height:38px}
+.nav ul{display:flex;gap:32px;list-style:none;margin:0;padding:0;font-size:16px}
+.nav ul a{text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s}
+.nav ul a:hover{color:var(--text)}
+.nav-r{display:flex;align-items:center;gap:12px}
+.theme-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--btnbg);color:var(--text);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .2s}
+.theme-btn:hover{border-color:var(--blue);transform:rotate(-12deg)}
+.theme-btn svg{width:20px;height:20px}
+:root[data-theme="dark"] .theme-btn .sun,:root[data-theme="light"] .theme-btn .moon{display:none}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s;border:1px solid transparent;font-family:inherit;cursor:pointer}
+.btn:hover{transform:translateY(-2px)}
+.btn-amber{background:var(--amber);color:#1A1203;box-shadow:0 10px 30px -8px rgba(255,166,43,.55)}
+.btn-amber:hover{box-shadow:0 16px 40px -8px rgba(255,166,43,.7)}
+.btn-line{border-color:var(--btnline);color:var(--text);background:var(--btnbg)}
+.btn-line:hover{border-color:var(--blue)}
+.btn-sm{padding:10px 18px;font-size:15px}
+.btn svg{width:18px;height:18px}
+.btn.soon{cursor:default;opacity:.75}
+.btn.soon:hover{transform:none;border-color:var(--btnline)}
+.btn.soon em{font-style:normal;font-size:12px;font-weight:700;color:var(--kicker);border:1px solid currentColor;border-radius:99px;padding:1px 8px;margin-left:2px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:160px 0 100px;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(900px 520px at 78% 35%,var(--glow1),transparent 60%),
+    radial-gradient(700px 500px at 10% 90%,var(--glow2),transparent 60%),
+    linear-gradient(var(--gridline) 1px,transparent 1px) 0 0/44px 44px,
+    linear-gradient(90deg,var(--gridline) 1px,transparent 1px) 0 0/44px 44px;
+  mask-image:linear-gradient(#000 70%,transparent);-webkit-mask-image:linear-gradient(#000 70%,transparent)}
+.hero-grid{display:grid;grid-template-columns:1.12fr 1fr;gap:64px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 8px;border:1px solid var(--line);border-radius:99px;background:var(--pillbg);font-size:14.5px;color:var(--muted);margin-bottom:28px;text-decoration:none}
+.pill b{background:var(--amber);color:#1A1203;border-radius:99px;padding:2px 10px;font-size:13px}
+h1{margin:0 0 26px;font-weight:850;font-variation-settings:"wdth" 122;font-size:clamp(42px,5.2vw,72px);line-height:1;letter-spacing:-.02em}
+h1 span{background:linear-gradient(100deg,var(--g1) 0%,var(--g2) 45%,var(--g3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:20px;color:var(--muted);max-width:30em;margin:0 0 36px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.trust{display:flex;gap:14px 28px;margin-top:44px;color:var(--muted);font-size:15px;flex-wrap:wrap}
+.trust span{display:flex;align-items:center;gap:8px}
+.trust svg{width:18px;height:18px;color:var(--green)}
+
+/* Hero desktop: four app tiles with a live highlight-cursor tour */
+.desk{position:relative;border-radius:22px;padding:30px;background:linear-gradient(160deg,#16304F,#0B1A2E 70%);border:1px solid #2A4668;
+  box-shadow:0 50px 120px -30px rgba(0,0,0,.7),0 0 90px -20px rgba(79,179,240,.35)}
+.desk::before{content:"";position:absolute;inset:0;border-radius:inherit;background:
+  linear-gradient(rgba(79,179,240,.06) 1px,transparent 1px) 0 0/28px 28px,
+  linear-gradient(90deg,rgba(79,179,240,.06) 1px,transparent 1px) 0 0/28px 28px;pointer-events:none}
+.tiles{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.tile{position:relative;display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;background:rgba(7,17,31,.6);border:1px solid #24405F;text-decoration:none;color:#EAF1F8;transition:border-color .2s,transform .2s}
+.tile:hover{border-color:var(--amber);transform:translateY(-3px)}
+.tile .ai{width:62px;height:62px}
+.tile strong{font-size:17px;font-variation-settings:"wdth" 108;line-height:1.2}
+.tile small{color:#93A7BE;font-size:13.5px;margin-top:-8px}
+.taskbar{position:relative;margin-top:22px;height:48px;border-radius:14px;background:rgba(7,17,31,.75);border:1px solid #24405F;display:flex;align-items:center;justify-content:center;gap:12px;color:#4FB3F0}
+.taskbar svg{width:28px;height:28px}
+.taskbar svg:first-child{width:22px;height:22px}
+.ring{position:absolute;left:0;top:0;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;
+  background:rgba(255,214,10,.28);border:3px solid rgba(255,214,10,.9);pointer-events:none;z-index:3;
+  transform:translate(var(--rx,140px),var(--ry,120px));transition:transform 1.1s cubic-bezier(.65,0,.35,1)}
+.ring svg{position:absolute;left:44px;top:44px;width:26px;height:26px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+.ring-label{position:absolute;right:20px;top:-16px;background:#FFD60A;color:#1A1203;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:99px;z-index:4}
+
+/* ---------- Stats strip ---------- */
+.stats{border-block:1px solid var(--line);background:var(--deep)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:30px 24px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat strong{display:block;font-size:34px;font-weight:850;font-variation-settings:"wdth" 120;line-height:1.1}
+.stat span{color:var(--muted);font-size:15.5px}
+
+/* ---------- Sections ---------- */
+section.s{padding:120px 0}
+.head{max-width:740px;margin-bottom:64px}
+.head.c{margin-inline:auto;text-align:center}
+.kicker{color:var(--kicker);font-weight:700;font-size:16px;margin:0 0 14px}
+h2{margin:0 0 18px;font-size:clamp(34px,4.2vw,56px);line-height:1.03;font-weight:820;font-variation-settings:"wdth" 118;letter-spacing:-.015em;text-wrap:balance}
+.head p{color:var(--muted);font-size:19px;margin:0}
+
+/* ---------- App rows ---------- */
+.app-row{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;padding:56px 0;scroll-margin-top:80px}
+.app-row + .app-row{border-top:1px solid var(--line)}
+.app-row.flip .copy{order:2}
+.app-row > *,.hero-grid > *,.soon-grid > *{min-width:0}
+.app-id{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.app-id .ai{width:64px;height:64px;flex:none}
+.app-id h3{margin:0;font-size:32px;line-height:1.05;font-weight:820;font-variation-settings:"wdth" 116}
+.app-id p{margin:4px 0 0;color:var(--muted);font-size:15.5px}
+.copy > p{color:var(--muted);margin:0 0 22px}
+.feats{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:10px;font-size:16.5px}
+.feats li{display:flex;gap:12px}
+.feats svg{flex:none;width:20px;height:20px;margin-top:3px;color:var(--green)}
+.price-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--stepbg);font-size:15px;color:var(--muted)}
+.chip b{color:var(--text);font-size:16px}
+.chip.pro{border-color:rgba(255,166,43,.55);background:rgba(255,166,43,.1)}
+.chip.pro b{color:var(--kicker)}
+
+/* Mock windows */
+.win{border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#132845,#0D1D33);border:1px solid #2A4668;box-shadow:0 40px 90px -30px rgba(0,0,0,.7),0 0 70px -25px rgba(79,179,240,.35)}
+:root[data-theme="light"] .win{box-shadow:0 40px 80px -30px rgba(12,30,55,.5),0 0 70px -25px rgba(79,179,240,.4)}
+.win-top{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid #1F3757;font-size:13px;color:#93A7BE;white-space:nowrap;overflow:hidden}
+.win-top svg{width:18px;height:18px;flex:none}
+.win-top .dots{margin-left:auto;display:flex;gap:14px;color:#5F7690;font-size:14px}
+.win-body{padding:18px;min-height:330px;position:relative}
+
+/* PDF mock */
+.pdf{display:grid;grid-template-columns:76px 1fr;gap:16px;padding-bottom:22px}
+.thumbs{display:grid;gap:10px;align-content:start}
+.thumbs div{aspect-ratio:.77;border-radius:4px;background:#E9EEF4;border:2px solid transparent;padding:6px}
+.thumbs div.on{border-color:#FF5A47}
+.thumbs div::before{content:"";display:block;height:3px;background:#B9C6D4;box-shadow:0 7px 0 #B9C6D4,0 14px 0 #B9C6D4,0 21px 0 #C8D3DE}
+.page{position:relative;background:#F7F9FB;border-radius:6px;padding:26px 26px 22px;color:#13243A}
+.page h4{margin:0 0 12px;font-size:16px;font-weight:800}
+.ln{height:7px;border-radius:4px;background:#C9D3DE;margin-bottom:10px}
+.ln.hl{background:rgba(255,214,10,.75);height:12px;margin-top:-2px}
+.sig{margin-top:18px;display:flex;justify-content:space-between;align-items:end;gap:10px}
+.sig svg{width:120px;height:40px}
+.sig span{font-size:11px;color:#5A6B7D;border-top:1px solid #9AA9B8;padding-top:4px;width:110px}
+.note{position:absolute;right:-12px;top:62px;background:#FFE58A;color:#3A2C00;font-size:12px;font-weight:600;padding:8px 12px;border-radius:8px 8px 8px 2px;box-shadow:0 10px 20px -8px rgba(0,0,0,.4);max-width:150px;line-height:1.35}
+.tools-bar{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);display:flex;gap:4px;background:#13243A;border:1px solid #2A4668;border-radius:12px;padding:6px}
+.tools-bar span{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#AFC0CE}
+.tools-bar span.on{background:#FF5A47;color:#fff}
+.tools-bar svg{width:17px;height:17px}
+
+/* Org chart mock */
+.org{position:relative;height:330px}
+.org svg.links{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;transform:translateX(-50%);width:118px;border-radius:10px;background:#F7F9FB;color:#13243A;padding:8px 10px 8px 40px;font-size:11px;line-height:1.3;box-shadow:0 8px 18px -8px rgba(0,0,0,.5);border-top:4px solid #4FB3F0}
+.node b{display:block;font-size:12px}
+.node i{position:absolute;left:8px;top:9px;width:24px;height:24px;border-radius:50%;background:#C9D6E3}
+.node.top{border-top-color:#FFA62B}
+.node.g{border-top-color:#3DD68C}
+.minimap{position:absolute;left:0;bottom:0;width:86px;height:60px;border:1px solid #2A4668;border-radius:8px;background:rgba(7,17,31,.6)}
+.minimap::after{content:"";position:absolute;left:18px;top:12px;width:40px;height:26px;border:1.5px solid #FFA62B;border-radius:3px}
+
+/* Highlight cursor mock */
+.hc{display:grid;grid-template-columns:1fr 168px;gap:16px}
+.slide{position:relative;border-radius:10px;background:#F7F9FB;color:#13243A;padding:22px;overflow:hidden}
+.slide h4{margin:0 0 14px;font-size:17px;font-weight:800}
+.bars{display:flex;align-items:end;gap:12px;height:200px;border-bottom:2px solid #C9D3DE;padding:0 6px}
+.bars i{flex:1;border-radius:5px 5px 0 0;background:#4FB3F0}
+.bars i:nth-child(3){background:#FFA62B}
+.hc-ring{position:absolute;left:55%;top:36%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:rgba(255,214,10,.32);border:3px solid rgba(255,190,0,.95)}
+.hc-ring svg{position:absolute;left:38px;top:38px;width:24px;height:24px}
+.settings{display:grid;gap:16px;font-size:12.5px;color:#93A7BE;align-content:start}
+.settings label{display:grid;gap:8px}
+.slider{height:6px;border-radius:99px;background:#1F3757;position:relative}
+.slider i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:#FFD60A;width:var(--v)}
+.slider i::after{content:"";position:absolute;right:-7px;top:-5px;width:16px;height:16px;border-radius:50%;background:#fff}
+.sw{display:flex;gap:8px}
+.sw i{width:24px;height:24px;border-radius:7px}
+.sw i.on{outline:2px solid #fff;outline-offset:2px}
+
+/* Word properties mock */
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;color:#C9D6E3}
+.tbl th{text-align:left;font-weight:600;color:#93A7BE;padding:8px 10px;border-bottom:1px solid #1F3757;font-size:12px}
+.tbl td{padding:9px 10px;border-bottom:1px solid #182D49;white-space:nowrap}
+.tbl td:first-child{display:flex;align-items:center;gap:8px}
+.ft{width:18px;height:20px;border-radius:3px;display:grid;place-items:center;font-size:9px;font-weight:800;color:#fff;flex:none}
+.ft.w{background:#2B6CD9}.ft.x{background:#1E8E4E}.ft.p{background:#D9542B}
+.tbl tr.sel td{background:rgba(255,166,43,.12);color:#fff}
+.tbl tr.sel td.ed{outline:2px solid #FFA62B;outline-offset:-2px;border-radius:4px}
+.wp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:12.5px;color:#93A7BE}
+.wp-foot b{background:#FFA62B;color:#1A1203;padding:8px 14px;border-radius:8px;font-size:12.5px}
+.pool{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px;font-size:12px;color:#93A7BE}
+.pool span{font-size:11.5px;padding:4px 10px;border-radius:99px;border:1px solid #2A4668;color:#C9D6E3}
+.pool span.on{border-color:#FFA62B;color:#FFA62B}
+
+/* ---------- Coming soon ---------- */
+.soon-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:22px}
+.soon-card{position:relative;border-radius:24px;border:1px solid var(--line);background:var(--cardbg);padding:34px;overflow:hidden;box-shadow:var(--shadow)}
+.soon-card h3{margin:14px 0 8px;font-size:26px;font-variation-settings:"wdth" 114}
+.soon-card p{margin:0 0 22px;color:var(--muted)}
+.badge{display:inline-block;font-size:13px;font-weight:700;padding:4px 12px;border-radius:99px;background:rgba(255,166,43,.14);color:var(--kicker)}
+.mini-dash{border-radius:14px;border:1px solid #2A4668;background:linear-gradient(180deg,#132845,#0D1D33);padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.kpi{background:rgba(7,17,31,.55);border:1px solid #1F3757;border-radius:10px;padding:8px 12px;color:#EAF1F8}
+.kpi small{display:block;font-size:11px;color:#93A7BE}
+.kpi strong{font-size:19px;font-weight:800}
+.mini-dash svg{width:100%;height:auto}
+.soon-list{display:grid;gap:22px}
+.soon-list .soon-card{padding:26px 28px}
+.soon-list .row{display:flex;gap:16px;align-items:center}
+.soon-list .ai{width:54px;height:54px;flex:none}
+.soon-list h3{margin:6px 0 0;font-size:21px}
+.soon-list p{margin:12px 0 0;font-size:16px}
+.soon-list a{color:var(--blue);font-weight:600}
+
+/* ---------- Pricing table ---------- */
+.ptable{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--cardbg);box-shadow:var(--shadow)}
+.ptable th,.ptable td{padding:20px 24px;text-align:left;border-bottom:1px solid var(--line)}
+.ptable tr:last-child td{border-bottom:0}
+.ptable thead th{font-size:14.5px;color:var(--muted);font-weight:600;background:var(--deep)}
+.ptable .appc{display:flex;align-items:center;gap:14px;font-weight:700;font-size:17px}
+.ptable .appc svg{width:40px;height:40px;flex:none}
+.ptable .pp{font-size:24px;font-weight:850;font-variation-settings:"wdth" 118}
+.ptable .free{color:var(--green);font-weight:700}
+.ptable a{color:var(--blue);font-weight:600;text-decoration:none;white-space:nowrap}
+.ptable a:hover{text-decoration:underline}
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:28px}
+.promise > div{display:flex;gap:14px;align-items:start;padding:22px;border-radius:16px;border:1px solid var(--line);background:var(--stepbg);box-shadow:var(--shadow)}
+.promise svg{flex:none;width:26px;height:26px;color:var(--amber)}
+.promise p{margin:0}
+.promise b{display:block;font-size:17px}
+.promise span{color:var(--muted);font-size:15px}
+
+/* ---------- About ---------- */
+.about{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
+.portrait{position:relative;aspect-ratio:1;border-radius:28px;background:radial-gradient(circle at 30% 25%,rgba(79,179,240,.35),transparent 55%),linear-gradient(160deg,#18365A,#0B1A2E);border:1px solid #2A4668;display:grid;place-items:center;overflow:hidden}
+.portrait .mono{font-size:150px;font-weight:900;font-variation-settings:"wdth" 125;letter-spacing:-.04em;color:rgba(234,241,248,.92)}
+.portrait .dim{position:absolute;left:12%;right:12%;bottom:13%;display:flex;align-items:center;gap:8px;color:#FFA62B;font-size:14px;font-weight:600}
+.portrait .dim::before,.portrait .dim::after{content:"";flex:1;height:2px;background:currentColor}
+.portrait .circ{position:absolute;inset:9%;border:1px dashed rgba(79,179,240,.4);border-radius:50%}
+.about p{color:var(--muted);font-size:18.5px;margin:0 0 18px}
+.about .sigline{color:var(--text);font-weight:700;margin-top:26px}
+
+/* ---------- CTA ---------- */
+.cta{position:relative;border-radius:32px;padding:80px 60px;overflow:hidden;text-align:center;
+  background:radial-gradient(600px 300px at 50% 0%,rgba(255,166,43,.28),transparent 70%),linear-gradient(160deg,#173458,#0C1C33);border:1px solid #2F4D72}
+.cta::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(rgba(79,179,240,.08) 1px,transparent 1px) 0 0/36px 36px,
+  linear-gradient(90deg,rgba(79,179,240,.08) 1px,transparent 1px) 0 0/36px 36px;mask-image:radial-gradient(closest-side,#000,transparent);-webkit-mask-image:radial-gradient(closest-side,#000,transparent)}
+.cta > *{position:relative}
+.cta p{color:var(--muted);font-size:19px;max-width:34em;margin:0 auto 34px}
+.cta .btns{justify-content:center}
+
+footer{padding:56px 0 40px;color:var(--muted);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+footer nav{display:flex;gap:26px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{color:var(--text)}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .rise{opacity:0;transform:translateY(26px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.28s}.d4{animation-delay:.4s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .hc-ring{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{50%{transform:scale(1.08)}}
+}
+@media (prefers-reduced-motion:reduce){.ring{transition:none}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1020px){
+  .hero-grid{grid-template-columns:1fr;gap:64px}
+  .app-row{grid-template-columns:1fr;gap:44px}
+  .app-row.flip .copy{order:0}
+  .soon-grid{grid-template-columns:1fr}
+  .about{grid-template-columns:1fr;gap:48px}
+  .portrait{max-width:420px}
+  .nav ul{display:none}
+  .stats .wrap{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0;padding-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .promise{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .wrap{padding:0 16px}
+  .hero{padding:120px 0 72px}
+  .hero p.sub{font-size:18px}
+  section.s{padding:84px 0}
+  .desk{padding:16px}
+  .tiles{gap:12px}
+  .tile{padding:14px}
+  .tile .ai{width:46px;height:46px}
+  .tile strong{font-size:15px}
+  .tile small{display:none}
+  .ring{width:70px;height:70px;margin:-35px 0 0 -35px}
+  .ring svg{left:31px;top:31px}
+  .stat{padding:22px 12px}
+  .stat strong{font-size:26px}
+  .app-id h3{font-size:26px}
+  .win-body{padding:12px;min-height:0}
+  .pdf{grid-template-columns:1fr}
+  .thumbs{display:none}
+  .note{right:6px;top:auto;bottom:70px}
+  .hc{grid-template-columns:1fr}
+  .settings{display:none}
+  .bars{height:150px}
+  .org{height:300px}
+  .node{width:92px;padding:6px 6px 6px 8px;font-size:10px}
+  .node i{display:none}
+  .tbl th:nth-child(3),.tbl td:nth-child(3){display:none}
+  .tbl td{white-space:normal}
+  .tbl td:first-child{white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;display:table-cell}
+  .ft{display:inline-grid;vertical-align:middle;margin-right:6px}
+  .ptable thead{display:none}
+  .ptable,.ptable tbody,.ptable tr,.ptable td{display:block}
+  .ptable tr{padding:16px 18px;border-bottom:1px solid var(--line)}
+  .ptable tr:last-child{border-bottom:0}
+  .ptable td{padding:4px 0;border:0}
+  .ptable td:nth-child(2),.ptable td:nth-child(3){display:inline-block;margin-right:18px}
+  .cta{padding:56px 22px;border-radius:24px}
+  .nav .btn-sm{padding:9px 14px;font-size:14px}
+}
+@media (max-width:420px){.brand span{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ============ Icons ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gPdf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF7A5C"/><stop offset="1" stop-color="#D92F2F"/></linearGradient>
+    <linearGradient id="gOrg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5EC8FF"/><stop offset="1" stop-color="#1E6FD9"/></linearGradient>
+    <linearGradient id="gWord" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7C9BFF"/><stop offset="1" stop-color="#3B4FD8"/></linearGradient>
+    <linearGradient id="gHc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset="1" stop-color="#FFA62B"/></linearGradient>
+    <linearGradient id="gEpc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4BE3A4"/><stop offset="1" stop-color="#14996A"/></linearGradient>
+  </defs>
+  <!-- App icons (illustrative; swap for the real Store icons if you prefer) -->
+  <symbol id="app-pdf" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gPdf)"/><path d="M20 12h17l9 9v31H20z" fill="#fff"/><path d="M37 12v9h9" fill="#FFD3C9"/><rect x="14" y="34" width="28" height="13" rx="3" fill="#13243A"/><text x="28" y="44.5" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="10" fill="#fff">PDF</text></symbol>
+  <symbol id="app-org" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gOrg)"/><path d="M32 22v8M18 30h28M18 30v6M46 30v6M32 30v6" stroke="#fff" stroke-width="2.6" fill="none"/><rect x="24" y="11" width="16" height="11" rx="3" fill="#FFA62B"/><rect x="10" y="36" width="16" height="11" rx="3" fill="#fff"/><rect x="38" y="36" width="16" height="11" rx="3" fill="#fff"/><rect x="24" y="36" width="16" height="11" rx="3" fill="#fff"/></symbol>
+  <symbol id="app-word" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gWord)"/><path d="M16 12h20l8 8v32H16z" fill="#fff"/><path d="M36 12v8h8" fill="#C9D3FF"/><path d="M21 26h14M21 32h18M21 38h10" stroke="#3B4FD8" stroke-width="2.6" stroke-linecap="round"/><path d="M38 38l9-9 6 6-9 9h-6z" fill="#FFA62B" stroke="#13243A" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="app-hc" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#13243A"/><circle cx="30" cy="30" r="17" fill="url(#gHc)" fill-opacity=".45" stroke="url(#gHc)" stroke-width="3.5"/><path d="M30 28l14 6-6 2 4 7-3 1.5-4-7-5 4z" fill="#fff" stroke="#13243A" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="app-epc" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gEpc)"/><path d="M14 42a18 18 0 1 1 36 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M32 42l9-11" stroke="#13243A" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="42" r="4" fill="#13243A"/></symbol>
+  <symbol id="app-android" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1B3A2E"/><path d="M18 30h28v16a4 4 0 0 1-4 4H22a4 4 0 0 1-4-4zM19 27a13 12 0 0 1 26 0zM24 14l3 5M40 14l-3 5" fill="#3DD68C" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="23" r="1.8" fill="#1B3A2E"/><circle cx="38" cy="23" r="1.8" fill="#1B3A2E"/></symbol>
+  <!-- UI icons -->
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-win" viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.5v7H3zM12 4.3 21 3v8.5h-9zM3 12.5h7.5v7L3 18.5zM12 12.5h9V21l-9-1.3z" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
+  <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6z" fill="#fff" stroke="#13243A" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3 6 9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-pay" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 10h20M6 15h4" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><path d="M3 9h18v4H3zM5 13h14v8H5zM12 9v12M12 9C10 4 6 5 7.5 8M12 9c2-5 6-4 4.5-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hl" viewBox="0 0 24 24"><path d="M4 20h7M14 4l6 6-8 8H6v-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M3 21c3-1 5-5 8-5s2 3 5 3 4-3 5-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M4 4h16v12H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-rot" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Engineering Tools FB home">
+      <svg viewBox="0 0 160 160" aria-hidden="true"><rect x="4" y="4" width="152" height="152" rx="26" fill="#FFA62B"/><g stroke="#07111F" stroke-width="7"><line x1="106" y1="4" x2="106" y2="156"/><line x1="106" y1="80" x2="156" y2="80"/></g><text x="56" y="104" text-anchor="middle" font-family="Archivo,Arial Black,sans-serif" font-weight="900" font-size="66" fill="#07111F">ET</text><text x="131" y="56" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="26" fill="#07111F">FB</text><path d="M131 98 L145 128 L117 128 Z" fill="#07111F"/></svg>
+      <span>Engineering Tools FB</span>
+    </a>
+    <ul>
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#soon">Coming soon</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-r">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <a class="btn btn-amber btn-sm" href="#apps">Browse apps</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <a class="pill rise" href="#apps"><b>4 apps</b> Now on the Microsoft Store</a>
+        <h1 class="rise d1"><span>Small Windows apps that do one job brilliantly.</span></h1>
+        <p class="sub rise d2">Edit PDFs, draw organization charts, fix Office file details in bulk and spotlight your cursor. Free to download. Pro is a one-time payment, never a subscription.</p>
+        <div class="btns rise d3">
+          <a class="btn btn-amber" href="#apps"><svg><use href="#i-win"/></svg>Explore the apps</a>
+          <a class="btn btn-line" href="#pricing">See Pro prices</a>
+        </div>
+        <div class="trust rise d4">
+          <span><svg><use href="#i-check"/></svg>Pay once, own it forever</span>
+          <span><svg><use href="#i-check"/></svg>No account needed</span>
+          <span><svg><use href="#i-check"/></svg>For Windows PCs</span>
+        </div>
+      </div>
+
+      <div class="rise d3">
+        <div class="desk island" id="desk">
+          <span class="ring-label">Highlight Cursor in action</span>
+          <div class="ring" id="ring" aria-hidden="true"><svg><use href="#i-cursor"/></svg></div>
+          <div class="tiles">
+            <a class="tile" href="#pdf"><svg class="ai"><use href="#app-pdf"/></svg><strong>FB PDF Editor</strong><small>Edit, sign and merge PDFs</small></a>
+            <a class="tile" href="#org"><svg class="ai"><use href="#app-org"/></svg><strong>Organization Chart FB</strong><small>Charts that arrange themselves</small></a>
+            <a class="tile" href="#word"><svg class="ai"><use href="#app-word"/></svg><strong>Word Properties Editor</strong><small>Batch-edit Office file details</small></a>
+            <a class="tile" href="#cursor"><svg class="ai"><use href="#app-hc"/></svg><strong>Highlight Cursor</strong><small>Spotlight your pointer</small></a>
+          </div>
+          <div class="taskbar" aria-hidden="true">
+            <svg><use href="#i-win"/></svg>
+            <svg><use href="#app-pdf"/></svg>
+            <svg><use href="#app-org"/></svg>
+            <svg><use href="#app-word"/></svg>
+            <svg><use href="#app-hc"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <div class="stats">
+    <div class="wrap">
+      <div class="stat"><strong>4</strong><span>apps on the Microsoft Store</span></div>
+      <div class="stat"><strong>$0</strong><span>to download every app</span></div>
+      <div class="stat"><strong>1×</strong><span>payment for Pro, no subscriptions</span></div>
+      <div class="stat"><strong>0</strong><span>accounts or sign-ups required</span></div>
+    </div>
+  </div>
+
+  <!-- ================= APPS ================= -->
+  <section class="s" id="apps" style="padding-bottom:60px">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="kicker">The apps</p>
+        <h2>Tools for the jobs that eat your afternoon.</h2>
+        <p>Every app starts free. Upgrade once to Pro for the extra features, and it's yours for good.</p>
+      </div>
+
+      <!-- FB PDF Editor -->
+      <article class="app-row" id="pdf">
+        <div class="copy reveal">
+          <div class="app-id"><svg class="ai"><use href="#app-pdf"/></svg><div><h3>FB PDF Editor</h3><p>View, edit and organize PDFs offline</p></div></div>
+          <p>A lightweight PDF editor that keeps your documents on your own PC. No cloud uploads, no subscriptions, complete privacy.</p>
+          <ul class="feats">
+            <li><svg><use href="#i-check"/></svg>Reorder, rotate, extract, split and merge pages</li>
+            <li><svg><use href="#i-check"/></svg>Highlight, comment, draw and add notes</li>
+            <li><svg><use href="#i-check"/></svg>Fill in forms and insert your signature</li>
+            <li><svg><use href="#i-check"/></svg>Works fully offline, with no account required</li>
+          </ul>
+          <div class="price-row"><span class="chip"><b>Free</b> download</span><span class="chip pro">Pro <b>$34.99</b> one-time</span></div>
+          <div class="btns">
+            <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9PHX8LHT9CLH?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
+            <span class="btn btn-line soon" aria-disabled="true"><svg><use href="#i-play"/></svg>Video <em>Coming soon</em></span>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="win island" role="img" aria-label="FB PDF Editor with a page showing a highlight, a note and a signature">
+            <div class="win-top"><svg><use href="#app-pdf"/></svg>FB PDF Editor: Contract_Rev3.pdf<span class="dots">— ▢ ✕</span></div>
+            <div class="win-body">
+              <div class="pdf">
+                <div class="thumbs"><div></div><div class="on"></div><div></div></div>
+                <div class="page">
+                  <h4>Service Agreement</h4>
+                  <div class="ln" style="width:92%"></div><div class="ln" style="width:84%"></div>
+                  <div class="ln hl" style="width:70%"></div>
+                  <div class="ln" style="width:88%"></div><div class="ln" style="width:60%"></div>
+                  <div class="ln" style="width:80%"></div><div class="ln" style="width:72%"></div>
+                  <div class="sig">
+                    <span>Client signature</span>
+                    <svg viewBox="0 0 120 40"><path d="M4 30c10-22 18-24 20-12s-6 18 2 10 14-22 18-14-4 16 6 8 10-10 14-6 6 6 14 0 14-4 22-6" fill="none" stroke="#1E4FA8" stroke-width="2.4" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="note">Check clause 4.2 before signing</div>
+                </div>
+              </div>
+              <div class="tools-bar"><span class="on"><svg><use href="#i-hl"/></svg></span><span><svg><use href="#i-note"/></svg></span><span><svg><use href="#i-pen"/></svg></span><span><svg><use href="#i-rot"/></svg></span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Organization Chart FB -->
+      <article class="app-row flip" id="org">
+        <div class="copy reveal">
+          <div class="app-id"><svg class="ai"><use href="#app-org"/></svg><div><h3>Organization Chart FB</h3><p>Org charts that lay themselves out</p></div></div>
+          <p>Add your people, say who reports to whom, and the chart arranges itself. No dragging boxes around to stop them overlapping.</p>
+          <ul class="feats">
+            <li><svg><use href="#i-check"/></svg>Automatic tree layout, with drag and drop to change who reports to whom</li>
+            <li><svg><use href="#i-check"/></svg>Import staff lists from CSV or Excel, with checks for broken links</li>
+            <li><svg><use href="#i-check"/></svg>Photos, contact details and departments on every card</li>
+            <li><svg><use href="#i-check"/></svg>Search, zoom, collapse and a mini-map for large organizations</li>
+            <li><svg><use href="#i-check"/></svg>Pro adds 5 card styles, 4 layouts, unlimited charts and SVG, PDF and Excel export</li>
+          </ul>
+          <div class="price-row"><span class="chip"><b>Free</b> up to 25 positions</span><span class="chip pro">Pro <b>$2.49</b> one-time</span></div>
+          <div class="btns">
+            <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9NT3RZ9893RB?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
+            <span class="btn btn-line soon" aria-disabled="true"><svg><use href="#i-play"/></svg>Video <em>Coming soon</em></span>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="win island" role="img" aria-label="Organization Chart FB showing a three-level chart">
+            <div class="win-top"><svg><use href="#app-org"/></svg>Organization Chart FB: Project Team<span class="dots">— ▢ ✕</span></div>
+            <div class="win-body">
+              <div class="org">
+                <svg class="links" viewBox="0 0 500 330" preserveAspectRatio="none" aria-hidden="true">
+                  <g stroke="#4FB3F0" stroke-width="2" fill="none" opacity=".8">
+                    <path d="M250 50v50M90 100h320M90 100v36M250 100v36M410 100v36"/>
+                    <path d="M410 186v30M360 216h100M360 216v30M460 216v30"/>
+                    <path d="M90 186v60"/>
+                  </g>
+                </svg>
+                <div class="node top" style="left:50%;top:6px"><i></i><b>Project Director</b>A. Rahman</div>
+                <div class="node" style="left:18%;top:136px"><i></i><b>Engineering</b>S. Khan</div>
+                <div class="node" style="left:50%;top:136px"><i></i><b>Procurement</b>M. Ali</div>
+                <div class="node g" style="left:82%;top:136px"><i></i><b>Construction</b>R. Haddad</div>
+                <div class="node" style="left:18%;top:246px"><i></i><b>Design Lead</b>N. Iqbal</div>
+                <div class="node g" style="left:72%;top:246px"><i></i><b>Site Manager</b>O. Saleh</div>
+                <div class="node g" style="left:92%;top:246px;width:70px;padding-left:10px"><b>+4</b>more</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Word Properties Editor -->
+      <article class="app-row" id="word">
+        <div class="copy reveal">
+          <div class="app-id"><svg class="ai"><use href="#app-word"/></svg><div><h3>Word Properties Editor</h3><p>Batch-edit Office file details</p></div></div>
+          <p>Fix the Author, dates and program of hundreds of Word, Excel and PowerPoint files in one go. No more File &gt; Info, one document at a time.</p>
+          <ul class="feats">
+            <li><svg><use href="#i-check"/></svg>Author, Last Saved By, Program, Status and all dates in one table</li>
+            <li><svg><use href="#i-check"/></svg>Works with .docx, .xlsx, .pptx, templates and macro files</li>
+            <li><svg><use href="#i-check"/></svg>Keep lists of names and programs and apply one value to many files</li>
+            <li><svg><use href="#i-check"/></svg>Set fixed dates, random ranges or offsets, and update the Windows file times too</li>
+            <li><svg><use href="#i-check"/></svg>Preview every change before saving, and drag and drop files in</li>
+          </ul>
+          <div class="price-row"><span class="chip"><b>Free</b> download</span><span class="chip pro">Pro <b>$9.99</b> one-time</span></div>
+          <div class="btns">
+            <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9N6NJQVF5KL7?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
+            <span class="btn btn-line soon" aria-disabled="true"><svg><use href="#i-play"/></svg>Video <em>Coming soon</em></span>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="win island" role="img" aria-label="Word Properties Editor table listing Office files with author and dates">
+            <div class="win-top"><svg><use href="#app-word"/></svg>Word Properties Editor: 128 files<span class="dots">— ▢ ✕</span></div>
+            <div class="win-body">
+              <div class="pool">Authors:<span class="on">F. Bhatti</span><span>Project Team</span><span>QA/QC Dept</span></div>
+              <table class="tbl">
+                <thead><tr><th>File</th><th>Author</th><th>Program</th><th>Modified</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="ft w">W</span>Method_Statement.docx</td><td>F. Bhatti</td><td>Microsoft Word</td><td>02 Oct 2026</td></tr>
+                  <tr class="sel"><td><span class="ft x">X</span>BOQ_Rev4.xlsx</td><td class="ed">F. Bhatti</td><td>Microsoft Excel</td><td>02 Oct 2026</td></tr>
+                  <tr><td><span class="ft p">P</span>Kickoff_Meeting.pptx</td><td>F. Bhatti</td><td>PowerPoint</td><td>01 Oct 2026</td></tr>
+                  <tr><td><span class="ft w">W</span>ITP_Piping.docx</td><td>F. Bhatti</td><td>Microsoft Word</td><td>30 Sep 2026</td></tr>
+                  <tr><td><span class="ft x">X</span>Material_Log.xlsx</td><td>F. Bhatti</td><td>Microsoft Excel</td><td>29 Sep 2026</td></tr>
+                </tbody>
+              </table>
+              <div class="wp-foot"><span>128 files ready</span><b>Save all changes</b></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Highlight Cursor -->
+      <article class="app-row flip" id="cursor">
+        <div class="copy reveal">
+          <div class="app-id"><svg class="ai"><use href="#app-hc"/></svg><div><h3>Highlight Cursor</h3><p>Let everyone follow your pointer</p></div></div>
+          <p>Puts a bright, customizable circle around your mouse pointer for presentations, tutorials, meetings and screen recordings.</p>
+          <ul class="feats">
+            <li><svg><use href="#i-check"/></svg>Always on top and click-through, so it never gets in your way</li>
+            <li><svg><use href="#i-check"/></svg>Size from 20 to 250 px, with adjustable opacity and outline</li>
+            <li><svg><use href="#i-check"/></svg>Any fill and outline colour, saved automatically</li>
+            <li><svg><use href="#i-check"/></svg>Lightweight: no account, no internet, no ads. Press Esc to close</li>
+          </ul>
+          <div class="price-row"><span class="chip"><b>Free</b> download</span><span class="chip pro">Pro <b>$4.99</b> one-time</span></div>
+          <div class="btns">
+            <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9PD22HK5D0JM?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
+            <span class="btn btn-line soon" aria-disabled="true"><svg><use href="#i-play"/></svg>Video <em>Coming soon</em></span>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="win island" role="img" aria-label="Highlight Cursor showing a yellow circle around the pointer on a presentation slide, with settings">
+            <div class="win-top"><svg><use href="#app-hc"/></svg>Highlight Cursor: Settings<span class="dots">— ▢ ✕</span></div>
+            <div class="win-body">
+              <div class="hc">
+                <div class="slide">
+                  <h4>Q3 progress by package</h4>
+                  <div class="bars"><i style="height:55%"></i><i style="height:72%"></i><i style="height:92%"></i><i style="height:48%"></i><i style="height:64%"></i></div>
+                  <div class="hc-ring"><svg><use href="#i-cursor"/></svg></div>
+                </div>
+                <div class="settings">
+                  <label>Size: 84 px<div class="slider"><i style="--v:34%"></i></div></label>
+                  <label>Opacity: 32%<div class="slider"><i style="--v:32%"></i></div></label>
+                  <label>Outline: 3 px<div class="slider"><i style="--v:20%"></i></div></label>
+                  <label>Fill colour<div class="sw"><i class="on" style="background:#FFD60A"></i><i style="background:#FF5A47"></i><i style="background:#3DD68C"></i><i style="background:#4FB3F0"></i></div></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= PRICING ================= -->
+  <section class="s" id="pricing" style="padding-top:60px">
+    <div class="wrap">
+      <div class="head c reveal">
+        <p class="kicker">Pricing</p>
+        <h2>Free to try. Pay once for Pro.</h2>
+        <p>Every Pro upgrade is a single lifetime purchase through the Microsoft Store. No subscriptions, no renewals.</p>
+      </div>
+      <table class="ptable reveal">
+        <thead><tr><th scope="col">App</th><th scope="col">Download</th><th scope="col">Pro, one-time</th><th scope="col"><span class="visually-hidden">Store link</span></th></tr></thead>
+        <tbody>
+          <tr><td><span class="appc"><svg><use href="#app-pdf"/></svg>FB PDF Editor</span></td><td class="free">Free</td><td class="pp">$34.99</td><td><a href="https://apps.microsoft.com/detail/9PHX8LHT9CLH?hl=en-us&amp;gl=US" target="_blank" rel="noopener">Get on Microsoft Store</a></td></tr>
+          <tr><td><span class="appc"><svg><use href="#app-word"/></svg>Word Properties Editor</span></td><td class="free">Free</td><td class="pp">$9.99</td><td><a href="https://apps.microsoft.com/detail/9N6NJQVF5KL7?hl=en-us&amp;gl=US" target="_blank" rel="noopener">Get on Microsoft Store</a></td></tr>
+          <tr><td><span class="appc"><svg><use href="#app-hc"/></svg>Highlight Cursor</span></td><td class="free">Free</td><td class="pp">$4.99</td><td><a href="https://apps.microsoft.com/detail/9PD22HK5D0JM?hl=en-us&amp;gl=US" target="_blank" rel="noopener">Get on Microsoft Store</a></td></tr>
+          <tr><td><span class="appc"><svg><use href="#app-org"/></svg>Organization Chart FB</span></td><td class="free">Free</td><td class="pp">$2.49</td><td><a href="https://apps.microsoft.com/detail/9NT3RZ9893RB?hl=en-us&amp;gl=US" target="_blank" rel="noopener">Get on Microsoft Store</a></td></tr>
+        </tbody>
+      </table>
+      <div class="promise">
+        <div class="reveal"><svg><use href="#i-pay"/></svg><p><b>Pay once</b><span>Pro is a lifetime upgrade. Buy it once and it stays yours.</span></p></div>
+        <div class="reveal"><svg><use href="#i-gift"/></svg><p><b>Try before you buy</b><span>Every app is free to download, so you can test it on real work first.</span></p></div>
+        <div class="reveal"><svg><use href="#i-lock"/></svg><p><b>Secure checkout</b><span>Payments are handled by the Microsoft Store, never by this website.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMING SOON ================= -->
+  <section class="s" id="soon" style="padding-top:20px">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="kicker">Coming soon</p>
+        <h2>On the drawing board.</h2>
+        <p>New apps and tutorial videos are on the way.</p>
+      </div>
+      <div class="soon-grid">
+        <div class="soon-card reveal">
+          <svg class="ai" style="width:58px;height:58px"><use href="#app-epc"/></svg>
+          <span class="badge" style="margin-top:16px">Coming soon</span>
+          <h3>EPC Project Tracker</h3>
+          <p>Engineering, procurement and construction progress, cost and documents in one Windows app. Built for the engineers who run the Monday progress meeting.</p>
+          <div class="mini-dash island" aria-hidden="true">
+            <div class="kpis">
+              <div class="kpi"><small>Overall progress</small><strong>64.2%</strong></div>
+              <div class="kpi"><small>Schedule index</small><strong>0.94</strong></div>
+              <div class="kpi"><small>Cost index</small><strong>1.03</strong></div>
+            </div>
+            <svg viewBox="0 0 400 110">
+              <g stroke="#1F3757"><path d="M0 28h400M0 56h400M0 84h400"/></g>
+              <path d="M0 106 C70 104 110 94 160 76 S260 24 330 12 S390 6 400 6" stroke="#5D7896" stroke-width="2" stroke-dasharray="5 5" fill="none"/>
+              <path d="M0 107 C70 105 115 98 165 82 S235 52 262 44" stroke="#4FB3F0" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <circle cx="262" cy="44" r="5" fill="#4FB3F0"/>
+            </svg>
+          </div>
+        </div>
+        <div class="soon-list">
+          <div class="soon-card reveal">
+            <div class="row"><svg class="ai"><use href="#app-android"/></svg><div><span class="badge">Coming soon</span><h3>Android apps</h3></div></div>
+            <p>Engineering tools for your phone, on Google Play.</p>
+          </div>
+          <div class="soon-card reveal">
+            <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#C4302B"/><path d="M26 21v22l18-11z" fill="#fff"/></svg><div><span class="badge">Coming soon</span><h3>Video tutorials</h3></div></div>
+            <p>Short how-to videos for every app on YouTube.</p>
+          </div>
+          <div class="soon-card reveal">
+            <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1B3557"/><path d="M32 18v28M18 32h28" stroke="#FFA62B" stroke-width="5" stroke-linecap="round"/></svg><div><h3>Have an idea?</h3></div></div>
+            <p>Tell me the task you repeat every week. The best ideas become the next app. <a href="#contact">Suggest a tool</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="s" id="about">
+    <div class="wrap about">
+      <div class="portrait island reveal" aria-hidden="true">
+        <!-- Replace with a photo when ready: <img src="farrukh.jpg" alt="Farrukh Bhatti"> -->
+        <div class="circ"></div>
+        <div class="mono">FB</div>
+        <div class="dim">Engineer + developer</div>
+      </div>
+      <div class="reveal">
+        <p class="kicker">About</p>
+        <h2>Built by an engineer who got tired of waiting.</h2>
+        <p>I'm Farrukh Bhatti. Engineering Tools FB started with a simple idea: when a task wastes your time every week, build a small tool that does it properly.</p>
+        <p>Each app is focused, quick to learn and runs on your own PC. You pay once if you want the extra features, and that's it.</p>
+        <p class="sigline">Farrukh Bhatti, founder</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="s" id="contact" style="padding-top:20px">
+    <div class="wrap">
+      <div class="cta island reveal">
+        <h2>Get more done on Windows today.</h2>
+        <p>Download any app free from the Microsoft Store, or get in touch with questions, feedback or ideas for the next tool.</p>
+        <div class="btns">
+          <a class="btn btn-amber" href="#apps"><svg><use href="#i-win"/></svg>Browse the apps</a>
+          <!-- TODO: confirm the public contact email -->
+          <a class="btn btn-line" href="mailto:hello@engineeringtoolsfb.com"><svg><use href="#i-mail"/></svg>Email Farrukh</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Engineering Tools FB</span>
+    <nav aria-label="Footer">
+      <a href="#apps">Apps</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#soon">Coming soon</a>
+      <a href="https://github.com/imfarukh">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle
+  const root=document.documentElement,tb=document.getElementById('themeBtn');
+  const label=()=>tb.setAttribute('aria-label',root.dataset.theme==='dark'?'Switch to light theme':'Switch to dark theme');
+  label();
+  tb.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';label();
+    try{localStorage.setItem('etfb-theme',root.dataset.theme)}catch(e){}});
+
+  // Nav background on scroll
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('scrolled',scrollY>20);
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // Reveal on scroll
+  const els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(el=>io.observe(el));
+  } else els.forEach(el=>el.classList.add('in'));
+
+  // Highlight-cursor tour across the hero tiles
+  const desk=document.getElementById('desk'),ring=document.getElementById('ring');
+  const tiles=[...desk.querySelectorAll('.tile')];
+  let i=0,last=0,hover=false;
+  const moveTo=t=>{const d=desk.getBoundingClientRect(),r=t.getBoundingClientRect();
+    const off=innerWidth<640?32:44;
+    ring.style.setProperty('--rx',(r.left-d.left+off)+'px');ring.style.setProperty('--ry',(r.top-d.top+off)+'px');};
+  const step=()=>{if(!hover){moveTo(tiles[i]);last=i;i=(i+1)%tiles.length}};
+  requestAnimationFrame(step);
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(step,2200);
+  tiles.forEach(t=>t.addEventListener('pointerenter',()=>{hover=true;moveTo(t)}));
+  desk.addEventListener('pointerleave',()=>{hover=false});
+  addEventListener('resize',()=>moveTo(tiles[last]));
+</script>
+</body>
+</html>
