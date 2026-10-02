@@ -278,7 +278,12 @@ h2{margin:0 0 18px;font-size:clamp(34px,4.2vw,56px);line-height:1.03;font-weight
 .yt.big .yt-btn{width:96px;height:68px;margin:-34px 0 0 -48px;border-radius:20px}
 .yt-play:hover .yt-btn{transform:scale(1.08)}
 .yt-btn svg{width:28px;height:28px;color:#fff}
-.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt iframe,.yt .yt-frame{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-max{position:absolute;right:10px;top:10px;z-index:3;display:flex;align-items:center;gap:8px;height:38px;padding:0 10px;border-radius:10px;background:rgba(7,17,31,.82);color:#fff;text-decoration:none;font-size:13.5px;font-weight:700;border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);transition:background .2s}
+.yt-max svg{width:18px;height:18px;flex:none}
+.yt-max span{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .3s}
+.yt-max:hover,.yt-max:focus-visible{background:#FF0033}
+.yt-max:hover span,.yt-max:focus-visible span,.yt.big .yt-max span{max-width:220px}
 .vnum{position:absolute;left:12px;top:12px;background:rgba(7,17,31,.82);color:#FFA62B;font-weight:800;font-size:14px;padding:3px 10px;border-radius:8px}
 .vf-side h3{margin:0 0 12px;font-size:30px;line-height:1.1;font-variation-settings:"wdth" 114}
 .vf-side p{color:var(--muted);margin:0 0 26px}
@@ -437,6 +442,7 @@ footer a:hover{color:var(--text)}
   <symbol id="app-aqua" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gAqua)"/><path d="M32 10l17 6v13c0 11-7.4 19.5-17 23-9.6-3.5-17-12-17-23V16z" fill="#fff" fill-opacity=".95"/><path d="M32 22c4.5 6 7 9.6 7 13a7 7 0 0 1-14 0c0-3.4 2.5-7 7-13z" fill="#0E8FB8"/></symbol>
   <symbol id="app-studio" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gStudio)"/><path d="M20 44l12-26 12 26" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="18" r="4" fill="#fff"/><path d="M15 36h34" stroke="#FFD48A" stroke-width="3" stroke-dasharray="4 4"/></symbol>
   <!-- UI icons -->
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-yt" viewBox="0 0 24 24"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .4-3.8 31 31 0 0 0-.4-3.8zM10 15V9l5.2 3z" fill="currentColor"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-win" viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.5v7H3zM12 4.3 21 3v8.5h-9zM3 12.5h7.5v7L3 18.5zM12 12.5h9V21l-9-1.3z" fill="currentColor"/></symbol>
@@ -711,6 +717,7 @@ footer a:hover{color:var(--text)}
 
       <div class="vfeature reveal">
         <div class="yt big" data-id="NipdnyJFthA" data-title="Engineering Tools FB promo">
+            <a class="yt-max" href="https://www.youtube.com/watch?v=NipdnyJFthA" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
           <button class="yt-play" type="button" aria-label="Play the Engineering Tools FB promo">
             <img src="https://i.ytimg.com/vi/NipdnyJFthA/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720" onerror="this.src='https://i.ytimg.com/vi/NipdnyJFthA/hqdefault.jpg'">
             <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
@@ -732,6 +739,7 @@ footer a:hover{color:var(--text)}
       <div class="vgrid">
         <article class="vcard reveal">
           <div class="yt" data-id="z449qRcskuc" data-title="Work with tables">
+            <a class="yt-max" href="https://www.youtube.com/watch?v=z449qRcskuc" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
             <button class="yt-play" type="button" aria-label="Play: Work with tables">
               <img src="https://i.ytimg.com/vi/z449qRcskuc/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
               <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
@@ -742,6 +750,7 @@ footer a:hover{color:var(--text)}
         </article>
         <article class="vcard reveal">
           <div class="yt" data-id="WbZmsjOYzmI" data-title="Make scanned PDFs searchable (OCR)">
+            <a class="yt-max" href="https://www.youtube.com/watch?v=WbZmsjOYzmI" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
             <button class="yt-play" type="button" aria-label="Play: Make scanned PDFs searchable (OCR)">
               <img src="https://i.ytimg.com/vi/WbZmsjOYzmI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
               <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
@@ -752,6 +761,7 @@ footer a:hover{color:var(--text)}
         </article>
         <article class="vcard reveal">
           <div class="yt" data-id="WvZap29KmvY" data-title="Add stamps">
+            <a class="yt-max" href="https://www.youtube.com/watch?v=WvZap29KmvY" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
             <button class="yt-play" type="button" aria-label="Play: Add stamps">
               <img src="https://i.ytimg.com/vi/WvZap29KmvY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
               <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
@@ -762,6 +772,7 @@ footer a:hover{color:var(--text)}
         </article>
         <article class="vcard reveal">
           <div class="yt" data-id="8RLJsb3lTvw" data-title="Sign a PDF">
+            <a class="yt-max" href="https://www.youtube.com/watch?v=8RLJsb3lTvw" target="_blank" rel="noopener" aria-label="Watch full screen on YouTube" title="Watch full screen on YouTube"><svg><use href="#i-expand"/></svg><span>Full screen on YouTube</span></a>
             <button class="yt-play" type="button" aria-label="Play: Sign a PDF">
               <img src="https://i.ytimg.com/vi/8RLJsb3lTvw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
               <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
@@ -984,14 +995,28 @@ footer a:hover{color:var(--text)}
   tiles.forEach(t=>t.addEventListener('pointerenter',()=>{hover=true;moveTo(t)}));
   desk.addEventListener('pointerleave',()=>{hover=false});
   addEventListener('resize',()=>moveTo(tiles[last]));
-  // YouTube: load the real player only when a video is clicked (fast page, plays count as views)
+  // YouTube: the real player loads only when a video is clicked (fast page; plays count as views).
+  // The player's own full-screen is turned off; our full-screen button opens the video on YouTube
+  // at the same moment, so full-screen watching happens on the channel.
+  let ytReady;
+  const loadYT=()=>ytReady||(ytReady=new Promise(res=>{
+    window.onYouTubeIframeAPIReady=res;
+    const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';document.head.appendChild(sc);
+  }));
   document.querySelectorAll('.yt').forEach(box=>{
-    box.querySelector('.yt-play').addEventListener('click',()=>{
-      const f=document.createElement('iframe');
-      f.src='https://www.youtube.com/embed/'+box.dataset.id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-      f.title=box.dataset.title;f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';
-      box.innerHTML='';box.appendChild(f);
+    const id=box.dataset.id, max=box.querySelector('.yt-max'); let player=null;
+    box.querySelector('.yt-play').addEventListener('click',async()=>{
+      const holder=document.createElement('div');holder.className='yt-frame';
+      box.querySelector('.yt-play').replaceWith(holder);
+      await loadYT();
+      player=new YT.Player(holder,{videoId:id,host:'https://www.youtube.com',
+        playerVars:{autoplay:1,fs:0,rel:0,playsinline:1,modestbranding:1},
+        events:{onReady:e=>e.target.playVideo()}});
+    });
+    max.addEventListener('click',e=>{
+      let t=0;
+      try{if(player&&player.getCurrentTime){t=Math.floor(player.getCurrentTime());player.pauseVideo();}}catch(_){}
+      max.href='https://www.youtube.com/watch?v='+id+(t>2?'&t='+t+'s':'');
     });
   });
 </script>
