@@ -266,6 +266,41 @@ h2{margin:0 0 18px;font-size:clamp(34px,4.2vw,56px);line-height:1.03;font-weight
 .soon-row p{margin:12px 0 0;font-size:16px}
 .soon-row a{color:var(--blue);font-weight:600}
 
+/* ---------- Videos ---------- */
+.vfeature{display:grid;grid-template-columns:1.5fr 1fr;gap:44px;align-items:center;margin-bottom:64px}
+.yt{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;border:1px solid #2A4668;box-shadow:0 40px 90px -30px rgba(0,0,0,.6)}
+:root[data-theme="light"] .yt{box-shadow:0 30px 70px -30px rgba(12,30,55,.45)}
+.yt-play{all:unset;cursor:pointer;position:absolute;inset:0;display:block}
+.yt-play img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s,filter .3s;filter:brightness(.88)}
+.yt-play:hover img{transform:scale(1.03);filter:brightness(1)}
+.yt-play:focus-visible{outline:3px solid var(--amber);outline-offset:-3px}
+.yt-btn{position:absolute;left:50%;top:50%;width:76px;height:54px;margin:-27px 0 0 -38px;border-radius:16px;background:#FF0033;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .2s}
+.yt.big .yt-btn{width:96px;height:68px;margin:-34px 0 0 -48px;border-radius:20px}
+.yt-play:hover .yt-btn{transform:scale(1.08)}
+.yt-btn svg{width:28px;height:28px;color:#fff}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vnum{position:absolute;left:12px;top:12px;background:rgba(7,17,31,.82);color:#FFA62B;font-weight:800;font-size:14px;padding:3px 10px;border-radius:8px}
+.vf-side h3{margin:0 0 12px;font-size:30px;line-height:1.1;font-variation-settings:"wdth" 114}
+.vf-side p{color:var(--muted);margin:0 0 26px}
+.btn svg[class]{width:20px}
+.vgroup{margin-bottom:22px}
+.vg-head{display:flex;gap:14px;align-items:center}
+.vg-head .ai{width:48px;height:48px}
+.vg-head h3{margin:0;font-size:24px;font-variation-settings:"wdth" 112}
+.vg-head p{margin:2px 0 0;color:var(--muted);font-size:15px}
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.vcard{display:flex;flex-direction:column;gap:14px;min-width:0}
+.vcard .yt{border-radius:14px;box-shadow:var(--shadow)}
+.vmeta h3{margin:0 0 4px;font-size:18.5px;line-height:1.25}
+.vmeta p{margin:0 0 8px;color:var(--muted);font-size:15px}
+.vmeta a{color:var(--blue);font-weight:600;font-size:14.5px;text-decoration:none}
+.vmeta a:hover{text-decoration:underline}
+.vmore{margin:34px 0 0;color:var(--muted);font-size:16px}
+.vmore a{color:var(--blue);font-weight:600}
+.badge.live-badge{background:rgba(61,214,140,.15);color:var(--green)}
+@media (max-width:1020px){.vfeature{grid-template-columns:1fr;gap:26px}.vgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.vgrid{grid-template-columns:1fr}}
+
 /* ---------- Pricing table ---------- */
 .ptable{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--cardbg);box-shadow:var(--shadow)}
 .ptable th,.ptable td{padding:20px 24px;text-align:left;border-bottom:1px solid var(--line)}
@@ -402,6 +437,7 @@ footer a:hover{color:var(--text)}
   <symbol id="app-aqua" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gAqua)"/><path d="M32 10l17 6v13c0 11-7.4 19.5-17 23-9.6-3.5-17-12-17-23V16z" fill="#fff" fill-opacity=".95"/><path d="M32 22c4.5 6 7 9.6 7 13a7 7 0 0 1-14 0c0-3.4 2.5-7 7-13z" fill="#0E8FB8"/></symbol>
   <symbol id="app-studio" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gStudio)"/><path d="M20 44l12-26 12 26" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="18" r="4" fill="#fff"/><path d="M15 36h34" stroke="#FFD48A" stroke-width="3" stroke-dasharray="4 4"/></symbol>
   <!-- UI icons -->
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .4-3.8 31 31 0 0 0-.4-3.8zM10 15V9l5.2 3z" fill="currentColor"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-win" viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.5v7H3zM12 4.3 21 3v8.5h-9zM3 12.5h7.5v7L3 18.5zM12 12.5h9V21l-9-1.3z" fill="currentColor"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
@@ -424,10 +460,10 @@ footer a:hover{color:var(--text)}
     </a>
     <ul>
       <li><a href="#apps">Apps</a></li>
+      <li><a href="#videos">Videos</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#soon">Coming soon</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="downloads/">Downloads</a></li>
     </ul>
     <div class="nav-r">
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme">
@@ -513,7 +549,7 @@ footer a:hover{color:var(--text)}
           <div class="price-row"><span class="chip"><b>Free</b> download</span><span class="chip pro">Pro <b>$34.99</b> one-time</span></div>
           <div class="btns">
             <a class="btn btn-amber" href="https://apps.microsoft.com/detail/9PHX8LHT9CLH?hl=en-us&amp;gl=US" target="_blank" rel="noopener"><svg><use href="#i-win"/></svg>Get it from Microsoft</a>
-            <span class="btn btn-line soon" aria-disabled="true"><svg><use href="#i-play"/></svg>Video <em>Coming soon</em></span>
+            <a class="btn btn-line" href="#videos"><svg><use href="#i-play"/></svg>Watch 4 tutorials</a>
           </div>
         </div>
         <div class="reveal">
@@ -664,6 +700,81 @@ footer a:hover{color:var(--text)}
     </div>
   </section>
 
+  <!-- ================= VIDEOS ================= -->
+  <section class="s" id="videos" style="padding-top:20px">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="kicker">Videos</p>
+        <h2>See the apps in action.</h2>
+        <p>Short, step-by-step videos. New tutorials are added to the YouTube channel regularly.</p>
+      </div>
+
+      <div class="vfeature reveal">
+        <div class="yt big" data-id="NipdnyJFthA" data-title="Engineering Tools FB promo">
+          <button class="yt-play" type="button" aria-label="Play the Engineering Tools FB promo">
+            <img src="https://i.ytimg.com/vi/NipdnyJFthA/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720" onerror="this.src='https://i.ytimg.com/vi/NipdnyJFthA/hqdefault.jpg'">
+            <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+          </button>
+        </div>
+        <div class="vf-side">
+          <h3>Engineering Tools FB in one minute</h3>
+          <p>A quick tour of every app: what each one does, what Pro adds and what is coming next.</p>
+          <div class="btns">
+            <a class="btn btn-amber" href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA?sub_confirmation=1" target="_blank" rel="noopener"><svg><use href="#i-yt"/></svg>Subscribe on YouTube</a>
+            <a class="btn btn-line" href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA/videos" target="_blank" rel="noopener">All videos</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="vgroup reveal">
+        <div class="vg-head"><svg class="ai"><use href="#app-pdf"/></svg><div><h3>FB PDF Editor tutorials</h3><p>4 videos</p></div></div>
+      </div>
+      <div class="vgrid">
+        <article class="vcard reveal">
+          <div class="yt" data-id="z449qRcskuc" data-title="Work with tables">
+            <button class="yt-play" type="button" aria-label="Play: Work with tables">
+              <img src="https://i.ytimg.com/vi/z449qRcskuc/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+              <span class="vnum">01</span>
+            </button>
+          </div>
+          <div class="vmeta"><h3>Work with tables</h3><p>Step by step: working with tables in your PDFs.</p><a href="https://www.youtube.com/watch?v=z449qRcskuc" target="_blank" rel="noopener">Watch on YouTube</a></div>
+        </article>
+        <article class="vcard reveal">
+          <div class="yt" data-id="WbZmsjOYzmI" data-title="Make scanned PDFs searchable (OCR)">
+            <button class="yt-play" type="button" aria-label="Play: Make scanned PDFs searchable (OCR)">
+              <img src="https://i.ytimg.com/vi/WbZmsjOYzmI/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+              <span class="vnum">02</span>
+            </button>
+          </div>
+          <div class="vmeta"><h3>Make scanned PDFs searchable (OCR)</h3><p>Make scanned pages searchable with OCR.</p><a href="https://www.youtube.com/watch?v=WbZmsjOYzmI" target="_blank" rel="noopener">Watch on YouTube</a></div>
+        </article>
+        <article class="vcard reveal">
+          <div class="yt" data-id="WvZap29KmvY" data-title="Add stamps">
+            <button class="yt-play" type="button" aria-label="Play: Add stamps">
+              <img src="https://i.ytimg.com/vi/WvZap29KmvY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+              <span class="vnum">03</span>
+            </button>
+          </div>
+          <div class="vmeta"><h3>Add stamps</h3><p>Add stamps to your PDF pages.</p><a href="https://www.youtube.com/watch?v=WvZap29KmvY" target="_blank" rel="noopener">Watch on YouTube</a></div>
+        </article>
+        <article class="vcard reveal">
+          <div class="yt" data-id="8RLJsb3lTvw" data-title="Sign a PDF">
+            <button class="yt-play" type="button" aria-label="Play: Sign a PDF">
+              <img src="https://i.ytimg.com/vi/8RLJsb3lTvw/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+              <span class="yt-btn"><svg><use href="#i-play"/></svg></span>
+              <span class="vnum">04</span>
+            </button>
+          </div>
+          <div class="vmeta"><h3>Sign a PDF</h3><p>Add your signature to a PDF.</p><a href="https://www.youtube.com/watch?v=8RLJsb3lTvw" target="_blank" rel="noopener">Watch on YouTube</a></div>
+        </article>
+      </div>
+      <p class="vmore reveal">Tutorials for Organization Chart FB, Word Properties Editor and Highlight Cursor are coming soon. <a href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a> to get them first.</p>
+    </div>
+  </section>
+
   <!-- ================= PRICING ================= -->
   <section class="s" id="pricing" style="padding-top:60px">
     <div class="wrap">
@@ -781,8 +892,8 @@ footer a:hover{color:var(--text)}
           <p>Engineering tools for your phone, on Google Play.</p>
         </div>
         <div class="soon-card reveal">
-          <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#C4302B"/><path d="M26 21v22l18-11z" fill="#fff"/></svg><div><span class="badge">Coming soon</span><h3>Video tutorials</h3></div></div>
-          <p>Short how-to videos for every app on YouTube.</p>
+          <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#C4302B"/><path d="M26 21v22l18-11z" fill="#fff"/></svg><div><span class="badge live-badge">Now on YouTube</span><h3>Video tutorials</h3></div></div>
+          <p>FB PDF Editor tutorials are live. More apps are on the way. <a href="#videos">Watch now</a></p>
         </div>
         <div class="soon-card reveal">
           <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1B3557"/><path d="M32 18v28M18 32h28" stroke="#FFA62B" stroke-width="5" stroke-linecap="round"/></svg><div><h3>Have an idea?</h3></div></div>
@@ -834,7 +945,7 @@ footer a:hover{color:var(--text)}
       <a href="#apps">Apps</a>
       <a href="#pricing">Pricing</a>
       <a href="#soon">Coming soon</a>
-      <a href="downloads/">Downloads</a>
+      <a href="https://www.youtube.com/channel/UCATKpjpOtqHVOwk39jge_VA" target="_blank" rel="noopener">YouTube</a>
       <a href="https://github.com/imfarukh">GitHub</a>
     </nav>
   </div>
@@ -873,6 +984,16 @@ footer a:hover{color:var(--text)}
   tiles.forEach(t=>t.addEventListener('pointerenter',()=>{hover=true;moveTo(t)}));
   desk.addEventListener('pointerleave',()=>{hover=false});
   addEventListener('resize',()=>moveTo(tiles[last]));
+  // YouTube: load the real player only when a video is clicked (fast page, plays count as views)
+  document.querySelectorAll('.yt').forEach(box=>{
+    box.querySelector('.yt-play').addEventListener('click',()=>{
+      const f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+box.dataset.id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title=box.dataset.title;f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';
+      box.innerHTML='';box.appendChild(f);
+    });
+  });
 </script>
 </body>
 </html>
