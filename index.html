@@ -241,6 +241,31 @@ h2{margin:0 0 18px;font-size:clamp(34px,4.2vw,56px);line-height:1.03;font-weight
 .soon-list p{margin:12px 0 0;font-size:16px}
 .soon-list a{color:var(--blue);font-weight:600}
 
+.big-soon{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.soon-card.feature{padding:30px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sf-top{display:flex;gap:16px;align-items:center;margin-bottom:14px}
+.sf-top .ai{width:60px;height:60px;flex:none}
+.sf-top h3{margin:6px 0 0;font-size:24px;line-height:1.1}
+.sf-sub{margin:4px 0 0 !important;font-size:14.5px}
+.soon-card.feature > p{font-size:16px;margin:0 0 16px}
+.soon-card.feature .feats{font-size:15.5px;gap:9px;margin-bottom:22px}
+.soon-card.feature .feats svg{width:18px;height:18px}
+.sf-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:14px;background:linear-gradient(180deg,#132845,#0D1D33);border:1px solid #2A4668;padding:12px}
+.sf-strip div{background:rgba(7,17,31,.55);border:1px solid #1F3757;border-radius:10px;padding:8px 10px;color:#EAF1F8;min-width:0}
+.sf-strip small{display:block;font-size:11px;color:#93A7BE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf-strip strong{font-size:20px;font-weight:800;white-space:nowrap}
+.sf-art{margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid #3B2F6E;background:linear-gradient(160deg,#1E1745,#0F1230)}
+.sf-art svg{width:100%;height:auto}
+#studio{background:radial-gradient(400px 260px at 80% 0%,rgba(176,124,255,.22),transparent 70%),var(--cardbg)}
+.sf-notify{margin-top:auto;padding-top:20px}
+.soon-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px}
+.soon-row .soon-card{padding:26px 28px}
+.soon-row .row{display:flex;gap:16px;align-items:center}
+.soon-row .ai{width:54px;height:54px;flex:none}
+.soon-row h3{margin:6px 0 0;font-size:21px}
+.soon-row p{margin:12px 0 0;font-size:16px}
+.soon-row a{color:var(--blue);font-weight:600}
+
 /* ---------- Pricing table ---------- */
 .ptable{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--cardbg);box-shadow:var(--shadow)}
 .ptable th,.ptable td{padding:20px 24px;text-align:left;border-bottom:1px solid var(--line)}
@@ -302,7 +327,7 @@ footer a:hover{color:var(--text)}
   .hero-grid{grid-template-columns:1fr;gap:64px}
   .app-row{grid-template-columns:1fr;gap:44px}
   .app-row.flip .copy{order:0}
-  .soon-grid{grid-template-columns:1fr}
+  .big-soon,.soon-row{grid-template-columns:1fr}
   .about{grid-template-columns:1fr;gap:48px}
   .portrait{max-width:420px}
   .nav ul{display:none}
@@ -363,6 +388,8 @@ footer a:hover{color:var(--text)}
     <linearGradient id="gOrg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5EC8FF"/><stop offset="1" stop-color="#1E6FD9"/></linearGradient>
     <linearGradient id="gWord" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7C9BFF"/><stop offset="1" stop-color="#3B4FD8"/></linearGradient>
     <linearGradient id="gHc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset="1" stop-color="#FFA62B"/></linearGradient>
+    <linearGradient id="gAqua" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3FD3F0"/><stop offset="1" stop-color="#0B6FA8"/></linearGradient>
+    <linearGradient id="gStudio" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B07CFF"/><stop offset="1" stop-color="#5B3BD6"/></linearGradient>
     <linearGradient id="gEpc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4BE3A4"/><stop offset="1" stop-color="#14996A"/></linearGradient>
   </defs>
   <!-- App icons (illustrative; swap for the real Store icons if you prefer) -->
@@ -372,6 +399,8 @@ footer a:hover{color:var(--text)}
   <symbol id="app-hc" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#13243A"/><circle cx="30" cy="30" r="17" fill="url(#gHc)" fill-opacity=".45" stroke="url(#gHc)" stroke-width="3.5"/><path d="M30 28l14 6-6 2 4 7-3 1.5-4-7-5 4z" fill="#fff" stroke="#13243A" stroke-width="1.5" stroke-linejoin="round"/></symbol>
   <symbol id="app-epc" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gEpc)"/><path d="M14 42a18 18 0 1 1 36 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M32 42l9-11" stroke="#13243A" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="42" r="4" fill="#13243A"/></symbol>
   <symbol id="app-android" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1B3A2E"/><path d="M18 30h28v16a4 4 0 0 1-4 4H22a4 4 0 0 1-4-4zM19 27a13 12 0 0 1 26 0zM24 14l3 5M40 14l-3 5" fill="#3DD68C" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="23" r="1.8" fill="#1B3A2E"/><circle cx="38" cy="23" r="1.8" fill="#1B3A2E"/></symbol>
+  <symbol id="app-aqua" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gAqua)"/><path d="M32 10l17 6v13c0 11-7.4 19.5-17 23-9.6-3.5-17-12-17-23V16z" fill="#fff" fill-opacity=".95"/><path d="M32 22c4.5 6 7 9.6 7 13a7 7 0 0 1-14 0c0-3.4 2.5-7 7-13z" fill="#0E8FB8"/></symbol>
+  <symbol id="app-studio" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="url(#gStudio)"/><path d="M20 44l12-26 12 26" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="18" r="4" fill="#fff"/><path d="M15 36h34" stroke="#FFD48A" stroke-width="3" stroke-dasharray="4 4"/></symbol>
   <!-- UI icons -->
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-win" viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.5v7H3zM12 4.3 21 3v8.5h-9zM3 12.5h7.5v7L3 18.5zM12 12.5h9V21l-9-1.3z" fill="currentColor"/></symbol>
@@ -664,42 +693,99 @@ footer a:hover{color:var(--text)}
     <div class="wrap">
       <div class="head reveal">
         <p class="kicker">Coming soon</p>
-        <h2>On the drawing board.</h2>
-        <p>New apps and tutorial videos are on the way.</p>
+        <h2>Bigger tools, nearly ready.</h2>
+        <p>Three larger applications are finished in-house and being prepared for release, along with tutorial videos for every app.</p>
       </div>
-      <div class="soon-grid">
-        <div class="soon-card reveal">
-          <svg class="ai" style="width:58px;height:58px"><use href="#app-epc"/></svg>
-          <span class="badge" style="margin-top:16px">Coming soon</span>
-          <h3>EPC Project Tracker</h3>
-          <p>Engineering, procurement and construction progress, cost and documents in one Windows app. Built for the engineers who run the Monday progress meeting.</p>
-          <div class="mini-dash island" aria-hidden="true">
-            <div class="kpis">
-              <div class="kpi"><small>Overall progress</small><strong>64.2%</strong></div>
-              <div class="kpi"><small>Schedule index</small><strong>0.94</strong></div>
-              <div class="kpi"><small>Cost index</small><strong>1.03</strong></div>
-            </div>
-            <svg viewBox="0 0 400 110">
-              <g stroke="#1F3757"><path d="M0 28h400M0 56h400M0 84h400"/></g>
-              <path d="M0 106 C70 104 110 94 160 76 S260 24 330 12 S390 6 400 6" stroke="#5D7896" stroke-width="2" stroke-dasharray="5 5" fill="none"/>
-              <path d="M0 107 C70 105 115 98 165 82 S235 52 262 44" stroke="#4FB3F0" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <circle cx="262" cy="44" r="5" fill="#4FB3F0"/>
+
+      <div class="big-soon">
+        <!-- Aqua Guard -->
+        <article class="soon-card feature reveal" id="aquaguard">
+          <div class="sf-top">
+            <svg class="ai"><use href="#app-aqua"/></svg>
+            <div><span class="badge">Coming soon</span><h3>Aqua Guard</h3><p class="sf-sub">CMMS: Computerized Maintenance Management System</p></div>
+          </div>
+          <p>A complete CMMS for water and wastewater plants: breakdowns, planned maintenance, shift handovers, lab results and stores in one place, with reliability figures worked out for you.</p>
+          <ul class="feats">
+            <li><svg><use href="#i-check"/></svg>Corrective maintenance with a two-step close and confirm</li>
+            <li><svg><use href="#i-check"/></svg>Preventive maintenance plans and a team schedule</li>
+            <li><svg><use href="#i-check"/></svg>Reliability dashboard: MTBF, MTTR, availability and repeat failures</li>
+            <li><svg><use href="#i-check"/></svg>Equipment 360° history and site layouts with markers on the plan</li>
+            <li><svg><use href="#i-check"/></svg>Shift log and handover, daily readings, process and lab analysis</li>
+            <li><svg><use href="#i-check"/></svg>Store inventory, HSE near-miss reports and role-based access</li>
+          </ul>
+          <div class="sf-strip island" aria-hidden="true">
+            <div><small>Availability</small><strong>97.4%</strong></div>
+            <div><small>MTBF</small><strong>412 h</strong></div>
+            <div><small>MTTR</small><strong>3.6 h</strong></div>
+            <div><small>PM on time</small><strong>94%</strong></div>
+          </div>
+        </article>
+
+        <!-- EPC Project Tracker -->
+        <article class="soon-card feature reveal" id="epc">
+          <div class="sf-top">
+            <svg class="ai"><use href="#app-epc"/></svg>
+            <div><span class="badge">Coming soon</span><h3>EPC Project Tracker</h3><p class="sf-sub">Project management tools for EPC projects</p></div>
+          </div>
+          <p>One app for the whole project, from the first milestone to handover. Records move from phase to phase: an approved PR becomes a PO, an installed asset gets its checklists.</p>
+          <ul class="feats">
+            <li><svg><use href="#i-check"/></svg>Milestones, Gantt, weightage, delay analysis and catch-up scenarios</li>
+            <li><svg><use href="#i-check"/></svg>Purchase requests with approval routing, then POs, vendors and savings</li>
+            <li><svg><use href="#i-check"/></svg>Document register with revisions, transmittals and review codes</li>
+            <li><svg><use href="#i-check"/></svg>Finance: cost register, IPC billing, cash flow and spend S-curve</li>
+            <li><svg><use href="#i-check"/></svg>Installation, punch list, QA/QC checklists and commissioning certificates</li>
+            <li><svg><use href="#i-check"/></svg>Asset 360° trace and a project archive by asset and phase</li>
+          </ul>
+          <div class="sf-strip island" aria-hidden="true">
+            <div><small>Planning</small><strong>50%</strong></div>
+            <div><small>Engineering</small><strong>100%</strong></div>
+            <div><small>Procurement</small><strong>33%</strong></div>
+            <div><small>SPI</small><strong>0.73</strong></div>
+          </div>
+        </article>
+
+        <!-- Engineering Studio -->
+        <!-- TODO: add Engineering Studio's features when available -->
+        <article class="soon-card feature reveal" id="studio">
+          <div class="sf-top">
+            <svg class="ai"><use href="#app-studio"/></svg>
+            <div><span class="badge">Coming soon</span><h3>Engineering Studio</h3><p class="sf-sub">A new workspace for engineers</p></div>
+          </div>
+          <p>The next big release from Engineering Tools FB. Full details will be announced here soon.</p>
+          <div class="sf-art island" aria-hidden="true">
+            <svg viewBox="0 0 360 300">
+              <defs><pattern id="sg" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#B07CFF" stroke-opacity=".14"/></pattern></defs>
+              <rect width="360" height="300" fill="url(#sg)"/>
+              <g fill="none" stroke="#B07CFF" stroke-width="1.6" stroke-opacity=".8">
+                <circle cx="180" cy="150" r="92" stroke-dasharray="5 6"/>
+                <circle cx="180" cy="150" r="56"/>
+                <path d="M60 150h240M180 30v240" stroke-opacity=".35"/>
+                <path d="M118 236l62-150 62 150" stroke="#E9DDFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M136 190h88" stroke="#FFA62B" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <circle cx="180" cy="86" r="8" fill="#E9DDFF"/>
+              <g stroke="#FFA62B" stroke-width="1.6"><path d="M70 262h220"/><path d="M70 254v16M290 254v16"/></g>
+              <text x="180" y="256" text-anchor="middle" fill="#FFA62B" font-size="13" font-family="Archivo,sans-serif" font-weight="700">2026</text>
             </svg>
           </div>
+          <div class="sf-notify">
+            <a class="btn btn-line" href="#contact"><svg><use href="#i-mail"/></svg>Tell me when it launches</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="soon-row">
+        <div class="soon-card reveal">
+          <div class="row"><svg class="ai"><use href="#app-android"/></svg><div><span class="badge">Coming soon</span><h3>Android apps</h3></div></div>
+          <p>Engineering tools for your phone, on Google Play.</p>
         </div>
-        <div class="soon-list">
-          <div class="soon-card reveal">
-            <div class="row"><svg class="ai"><use href="#app-android"/></svg><div><span class="badge">Coming soon</span><h3>Android apps</h3></div></div>
-            <p>Engineering tools for your phone, on Google Play.</p>
-          </div>
-          <div class="soon-card reveal">
-            <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#C4302B"/><path d="M26 21v22l18-11z" fill="#fff"/></svg><div><span class="badge">Coming soon</span><h3>Video tutorials</h3></div></div>
-            <p>Short how-to videos for every app on YouTube.</p>
-          </div>
-          <div class="soon-card reveal">
-            <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1B3557"/><path d="M32 18v28M18 32h28" stroke="#FFA62B" stroke-width="5" stroke-linecap="round"/></svg><div><h3>Have an idea?</h3></div></div>
-            <p>Tell me the task you repeat every week. The best ideas become the next app. <a href="#contact">Suggest a tool</a></p>
-          </div>
+        <div class="soon-card reveal">
+          <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#C4302B"/><path d="M26 21v22l18-11z" fill="#fff"/></svg><div><span class="badge">Coming soon</span><h3>Video tutorials</h3></div></div>
+          <p>Short how-to videos for every app on YouTube.</p>
+        </div>
+        <div class="soon-card reveal">
+          <div class="row"><svg class="ai" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1B3557"/><path d="M32 18v28M18 32h28" stroke="#FFA62B" stroke-width="5" stroke-linecap="round"/></svg><div><h3>Have an idea?</h3></div></div>
+          <p>Tell me the task you repeat every week. The best ideas become the next app. <a href="#contact">Suggest a tool</a></p>
         </div>
       </div>
     </div>
